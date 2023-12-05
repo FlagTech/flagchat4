@@ -7,6 +7,7 @@ __all__ = ['set_client', 'tools_table', 'get_reply', 'chat',
 
 _client = openai
 def set_client(client):
+    global _client
     _client = client
     
 def google_res(user_msg, num_results=5, verbose=False):
