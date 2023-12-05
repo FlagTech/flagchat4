@@ -5,11 +5,8 @@ from googlesearch import search  #upm package(googlesearch-python)
 __all__ = ['set_openai_key', 'func_table', 'get_reply', 'chat', 
            'set_backtrace', 'empty_history']
 
-_client = openai.OpenAI()
-
 def set_openai_key(key):
-    global _client
-    _client.api_key = key
+    openai.api_key = key
     
 def google_res(user_msg, num_results=5, verbose=False):
     content = "以下為已發生的事實：\n"                # 強調資料可信度
@@ -81,7 +78,7 @@ def _get_tool_calls(messages, stream=False, tools_table=None,
     if tools_table: # 加入工具表
         tools = {'tools':[tool['spec'] for tool in tools_table]}
 
-    response = _client.chat.completions.create(
+    response = openai.chat.completions.create(
         model = model,
         messages = messages,
         stream = stream,
