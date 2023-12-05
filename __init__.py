@@ -141,7 +141,7 @@ def get_reply(messages, stream=False, tools_table=None, **kwargs):
 _hist = []       # 歷史對話紀錄
 _backtrace = 2   # 記錄幾組對話
 
-def chat(sys_msg, user_msg, stream=False, **kwargs):
+def chat(sys_msg, user_msg, stream=False, tools_table=tools_table, **kwargs):
     global _hist
 
     replies = get_reply(    # 使用函式功能版的函式
