@@ -2,11 +2,12 @@ import openai
 import json
 from googlesearch import search  #upm package(googlesearch-python)
 
-__all__ = ['set_openai_key', 'tools_table', 'get_reply', 'chat', 
+__all__ = ['set_client', 'tools_table', 'get_reply', 'chat', 
            'set_backtrace', 'empty_history']
 
-def set_openai_key(key):
-    openai.api_key = key
+_client = openai
+def set_client(client):
+    _client = client
     
 def google_res(user_msg, num_results=5, verbose=False):
     content = "以下為已發生的事實：\n"                # 強調資料可信度
@@ -78,7 +79,7 @@ def _get_tool_calls(messages, stream=False, tools_table=None,
     if tools_table: # 加入工具表
         tools = {'tools':[tool['spec'] for tool in tools_table]}
 
-    response = openai.chat.completions.create(
+    response = _client.chat.completions.create(
         model = model,
         messages = messages,
         stream = stream,
@@ -169,10 +170,19 @@ def set_backtrace(backtrace=0):
 
 # 測試用的主程式
 if __name__ == '__main__':
-    api_key = input('請輸入 OpenAI API Key：')
-    if api_key:
-        set_openai_key(api_key)
+    print('測試預設使用 openai 的方式------')
     sys_msg = input('請輸入系統訊息：')
+    if not sys_msg: sys_msg = '繁體中文小助理'
+    while True:
+        user_msg = input('請輸入使用者訊息：')
+        if not user_msg: break
+        for reply in chat(sys_msg, user_msg, stream=True):
+            print(reply, end='')
+        print()
+        
+    print('測試使用自訂的 openai client------')
+    client = openai.OpenAI()
+    set_client(client)
     while True:
         user_msg = input('請輸入使用者訊息：')
         if not user_msg: break
