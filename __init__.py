@@ -185,6 +185,6 @@ if __name__ == '__main__':
     while True:
         user_msg = input('請輸入使用者訊息：')
         if not user_msg: break
-        for reply in chat(sys_msg, user_msg):
+        for reply in chat(sys_msg, user_msg, stream=True):
             print(reply, end='')
         print()
