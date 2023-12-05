@@ -167,12 +167,6 @@ def set_backtrace(backtrace=0):
         _backtrace = backtrace
     return _backtrace
 
-def set_verify_depth(verify_depyh = 0):
-    global _verify_depth
-    if verify_depyh > 0:
-        _verify_depth = verify_depyh
-    return _verify_depth
-
 # 測試用的主程式
 if __name__ == '__main__':
     api_key = input('請輸入 OpenAI API Key：')
