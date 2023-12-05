@@ -2,7 +2,7 @@ import openai
 import json
 from googlesearch import search  #upm package(googlesearch-python)
 
-__all__ = ['set_openai_key', 'func_table', 'get_reply', 'chat', 
+__all__ = ['set_openai_key', 'tools_table', 'get_reply', 'chat', 
            'set_backtrace', 'empty_history']
 
 def set_openai_key(key):
